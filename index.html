@@ -5,25 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Raptors 2019 Champion Player Guess</title>
-    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/setup.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div>
-      <p id="directionsText">Press any key to get started!</p>
-      <p id="winsText"></p>
-      <p id="currentWord"></p>
-      <p id="guessLeft"></p>
-      <p id="lettersGuessed"></p>
-    </div>
-    <div>
-      <button
-        id="x"
-        onclick="guessgame()"
-        name="button"
-        value="Generate"
-      ></button>
-    </div>
+    <header>
+      <img
+        src="images/Raptors-banner.png"
+        alt="raptors winning the Champion game for 2019"
+      />
+    </header>
+
+    <table>
+      <tr>
+        <th scope="col">
+          <img src="#" />
+        </th>
+        <th scope="col">
+          <h3>Press any key to get started!</h3>
+          <h4>Wins:</h4>
+          <span id="wins">0</span>
+          <h2>Current Word:</h2>
+          <span id="currentWord"></span>
+          <h3>Number of Guesses Remaining:</h3>
+          <span id="guesses">15</span>
+          <h4>Letters already guessed:</h4>
+          <span id="alreadyGuessed"></span>
+        </th>
+      </tr>
+    </table>
 
     <script src="javascript/game.js"></script>
   </body>

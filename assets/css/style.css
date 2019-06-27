@@ -1,0 +1,28 @@
+body {
+  background-color: black;
+  font-family: "Permanent Marker", cursive;
+  color: white;
+}
+
+header img {
+  padding: 5%;
+  width: 60%;
+  margin-left: 20%;
+}
+p {
+  text-align: center;
+}
+
+table {
+  margin: 0 auto;
+}
+
+th {
+  border: 3px dotted white;
+  width: 300px;
+  height: 500px;
+}
+
+p {
+  color: white;
+}
