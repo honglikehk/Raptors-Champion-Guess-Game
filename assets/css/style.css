@@ -26,3 +26,6 @@ th {
 p {
   color: white;
 }
+#playerWinner {
+  text-align: center;
+}
