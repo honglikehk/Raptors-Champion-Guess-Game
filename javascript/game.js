@@ -1,5 +1,5 @@
 // define the variables in the array
-let players = [
+const players = [
   "leonard",
   "lowry",
   "lin",
@@ -16,39 +16,71 @@ let players = [
   "loyd",
   "miller"
 ];
+
 let wins = 0;
 let guesses = 15;
-// array to record the users guesses
-let alreadyGuessed = [];
-
-// 1. Pick a random word out of the array
-let player = players[Math.floor(Math.random() * players.length)];
-
-// display the random player with function split() and underscores in place.
-let hangmanPlayer = player.split("");
-console.log(hangmanPlayer);
-
+let guessedLetters = [];
 let answerArray = [];
-// display the random player split up with underscores and join it into a word
-for (var i = 0; i < player.length; i++) {
-  answerArray[i] = "_";
-}
+let guessesLeft = 15;
+let rightWord = [];
+let wrongWord = [];
+
 let currentWord = document.getElementById("currentWord");
-// currentWord.innerHTML = answerArray;
-currentWord.innerHTML = answerArray.join(" ");
+// let  = document.getElementById("computer");
+// let tie = document.getElementById("tie");
 
-// Determines which key was pressed.
-document.onkeyup = function(event) {
-  let userGuess = event.key;
+// 1. Pick a random word out of the array,
+// display the random player with function split() and underscores in place.
+let updateCurrentPlayer = function() {
+  var output = players[Math.floor(Math.random() * players.length)];
+  var hangmanPlayer = output.split("");
+  return hangmanPlayer;
+  // display the random player split up with underscores and join it into a word
+};
 
-  // let the remaining letters be how much letters are in the word
-  let remainingLetters = player.length;
+// update the word with underscores
 
-  // if the user inputs equals to a letter in the game, then update the progress and decrease the remaining letters by 1
-
-  for (let j = 0; j < hangmanPlayer.length; j++) {
-    if (userGuess === hangmanPlayer[j]) {
-      remainingLetters--;
-    }
+let updateCurrentWord = function() {
+  for (var i = 0; i < updateCurrentPlayer().length; i++) {
+    answerArray[i] = "_";
+    document.querySelector("#currentWord").innerHTML = answerArray.join(" ");
   }
 };
+
+updateCurrentWord();
+
+console.log(answerArray);
+
+//reset the game when the users wants to, or at the end of the game
+
+let reset = function() {
+  let guessesLeft = 15;
+  let guessedLetters = [];
+  updateCurrentPlayer();
+};
+// Determines which key was pressed.
+
+// document.addEventListener("keypress", function() {
+
+//   document.querySelector("#currentWord").innerHTML =
+// });
+
+document.addEventListener("keypress", event => {
+  let keycode = event.keyCode;
+  let keyword = String.fromCharCode(keycode);
+  console.log(keyword);
+
+  //update the underscores
+
+  if (updateCurrentPlayer().indexOf(keyword) > -1) {
+    rightWord.push(keyword);
+
+    console.log(rightWord);
+    // answerArray[updateCurrentWord.indexOf(keyword)] = keyword;
+    // currentWord.innerHTML = answerArray.join("");
+    // document.querySelector("#currentWord").innerHTML = answerArray.join(" ");
+  } else {
+    wrongWord.push(keyword);
+    console.log(wrongWord);
+  }
+});
