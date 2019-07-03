@@ -17,31 +17,37 @@ const players = [
   "miller"
 ];
 
-let wins = 0;
-let guesses = 15;
-let guessedLetters = [];
-let answerArray = [];
-let guessesLeft = 15;
-let rightWord = [];
-let wrongWord = [];
+var wins = 0;
+var guesses = 15;
+var guessedLetters = [];
+var answerArray = [];
+var guessesLeft = 15;
+var rightWord = [];
+var wrongWord = [];
+var hangmanPlayer = [];
 
-let currentWord = document.getElementById("currentWord");
+var currentWord = document.getElementById("currentWord");
+var wordLength = 0;
 // let  = document.getElementById("computer");
 // let tie = document.getElementById("tie");
 
 // 1. Pick a random word out of the array,
 // display the random player with function split() and underscores in place.
-let updateCurrentPlayer = function() {
+var updateCurrentPlayer = function() {
   var output = players[Math.floor(Math.random() * players.length)];
-  var hangmanPlayer = output.split("");
+  wordLength = output.length;
+  hangmanPlayer = output.split("");
+  console.log(output);
+  console.log(hangmanPlayer);
   return hangmanPlayer;
   // display the random player split up with underscores and join it into a word
 };
 
 // update the word with underscores
 
-let updateCurrentWord = function() {
-  for (var i = 0; i < updateCurrentPlayer().length; i++) {
+var updateCurrentWord = function() {
+  updateCurrentPlayer();
+  for (var i = 0; i < wordLength; i++) {
     answerArray[i] = "_";
     document.querySelector("#currentWord").innerHTML = answerArray.join(" ");
   }
@@ -49,11 +55,9 @@ let updateCurrentWord = function() {
 
 updateCurrentWord();
 
-console.log(answerArray);
-
 //reset the game when the users wants to, or at the end of the game
 
-let reset = function() {
+var reset = function() {
   let guessesLeft = 15;
   let guessedLetters = [];
   updateCurrentPlayer();
@@ -65,22 +69,33 @@ let reset = function() {
 //   document.querySelector("#currentWord").innerHTML =
 // });
 
-document.addEventListener("keypress", event => {
-  let keycode = event.keyCode;
-  let keyword = String.fromCharCode(keycode);
-  console.log(keyword);
+document.onkeyup = function(event) {
+  var userGuess = event.key;
 
-  //update the underscores
+  // takes in guess, returns nothing
+  // if (userGuess === hangmanPlayer[i]) {
 
-  if (updateCurrentPlayer().indexOf(keyword) > -1) {
-    rightWord.push(keyword);
+  // }
+  // correct = pushed to answer array
+  // wrong = pushed to side array
+};
 
-    console.log(rightWord);
-    // answerArray[updateCurrentWord.indexOf(keyword)] = keyword;
-    // currentWord.innerHTML = answerArray.join("");
-    // document.querySelector("#currentWord").innerHTML = answerArray.join(" ");
-  } else {
-    wrongWord.push(keyword);
-    console.log(wrongWord);
-  }
-});
+// document.addEventListener("keypress", event => {
+//   let keycode = event.keyCode;
+//   let keyword = String.fromCharCode(keycode);
+//   console.log(keyword);
+
+//   //update the underscores
+
+//   if (updateCurrentPlayer().indexOf(keyword) > -1) {
+//     rightWord.push(keyword);
+
+//     console.log(rightWord);
+//     // answerArray[updateCurrentWord.indexOf(keyword)] = keyword;
+//     // currentWord.innerHTML = answerArray.join("");
+//     document.getElementById("currentWord").innerHTML = answerArray.join(" ");
+//   } else {
+//     wrongWord.push(keyword);
+//     console.log(wrongWord);
+//   }
+// });
