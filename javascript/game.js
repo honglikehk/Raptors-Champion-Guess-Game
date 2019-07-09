@@ -72,17 +72,32 @@ document.onkeyup = function(event) {
 
   console.log(getGuess());
 
-  //3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
-  
+  var comparePlayer = word.split("");
+  var indPlayer = comparePlayer.indexOf(guess);
+  console.log(indPlayer);
+  console.log(answerArray);
 
+  for (var j = 0; j < word.length; j++) {
+    if (indPlayer === -1) {
+      guessedLetters.push(guess);
+      alreadyGuessed.innerHTML = guesses;
+      guesses--;
+    } else {
+      if (word[j] === guess) {
+        answerArray[j] = guess;
+        currentWord.innerHTML = answerArray;
+        remainingLetters--;
+      }
+    }
+
+    //3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
+  }
+
+  //4. if it is not correct then log it to an empty array adn show it
+
+  //5.  when the word is answered correctly --- add 1 point to the wins
+  // when the wins --- went through the length of the array - the user wins the game
+  // when they just win one word - reset .. the word and give a new random word
+
+  // 6. when the remaining guesses = 0; game over for the user
 };
-
-//3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
-
-//4. if it is not correct then log it to an empty array adn show it
-
-//5.  when the word is answered correctly --- add 1 point to the wins
-// when the wins --- went through the length of the array - the user wins the game
-// when they just win one word - reset .. the word and give a new random word
-
-// 6. when the remaining guesses = 0; game over for the user
