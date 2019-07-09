@@ -1,4 +1,4 @@
-// define the variables in the array
+// define the variables in the array - 15 players
 const players = [
   "leonard",
   "lowry",
@@ -21,81 +21,68 @@ var wins = 0;
 var guesses = 15;
 var guessedLetters = [];
 var answerArray = [];
-var guessesLeft = 15;
-var rightWord = [];
-var wrongWord = [];
-var hangmanPlayer = [];
 
 var currentWord = document.getElementById("currentWord");
-var wordLength = 0;
-// let  = document.getElementById("computer");
-// let tie = document.getElementById("tie");
+var wins = document.getElementById("wins");
+var alreadyGuessed = document.getElementById("alreadyGuessed");
 
-// 1. Pick a random word out of the array,
-// display the random player with function split() and underscores in place.
-var updateCurrentPlayer = function() {
-  var output = players[Math.floor(Math.random() * players.length)];
-  wordLength = output.length;
-  hangmanPlayer = output.split("");
-  console.log(output);
-  console.log(hangmanPlayer);
-  return hangmanPlayer;
-  // display the random player split up with underscores and join it into a word
-};
+// 1. pick a random word
 
-// update the word with underscores
+function randomPlayer() {
+  var randomPlayer = players[Math.floor(Math.random() * players.length)];
+  return randomPlayer;
+}
 
-var updateCurrentWord = function() {
-  updateCurrentPlayer();
-  for (var i = 0; i < wordLength; i++) {
+var word = randomPlayer();
+console.log(word);
+
+var remainingLetters = word.length;
+
+console.log(remainingLetters);
+
+// 1.5 set up the underscores under the letters and show the user what they have to work with
+function playerSetupUnderScores(word) {
+  for (var i = 0; i < word.length; i++) {
     answerArray[i] = "_";
-    document.querySelector("#currentWord").innerHTML = answerArray.join(" ");
   }
-};
+  var underScores = answerArray.join(" ");
 
-updateCurrentWord();
+  return underScores;
+}
 
-//reset the game when the users wants to, or at the end of the game
+// print the underscores to the page
+currentWord.innerHTML = playerSetupUnderScores(word);
 
-var reset = function() {
-  let guessesLeft = 15;
-  let guessedLetters = [];
-  updateCurrentPlayer();
-};
-// Determines which key was pressed.
+console.log(playerSetupUnderScores(word));
 
-// document.addEventListener("keypress", function() {
+// 2. when a user clicks the letter --- make sure to set it to all lowercase
+// initalize event listener
 
-//   document.querySelector("#currentWord").innerHTML =
-// });
-
+// This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
-  var userGuess = event.key;
+  // Determines which key was pressed.
 
-  // takes in guess, returns nothing
-  // if (userGuess === hangmanPlayer[i]) {
+  function getGuess() {
+    var userGuess = event.key;
+    var user = userGuess.toLowerCase();
+    return user;
+  }
 
-  // }
-  // correct = pushed to answer array
-  // wrong = pushed to side array
+  var guess = getGuess();
+
+  console.log(getGuess());
+
+  //3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
+  
+
 };
 
-// document.addEventListener("keypress", event => {
-//   let keycode = event.keyCode;
-//   let keyword = String.fromCharCode(keycode);
-//   console.log(keyword);
+//3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
 
-//   //update the underscores
+//4. if it is not correct then log it to an empty array adn show it
 
-//   if (updateCurrentPlayer().indexOf(keyword) > -1) {
-//     rightWord.push(keyword);
+//5.  when the word is answered correctly --- add 1 point to the wins
+// when the wins --- went through the length of the array - the user wins the game
+// when they just win one word - reset .. the word and give a new random word
 
-//     console.log(rightWord);
-//     // answerArray[updateCurrentWord.indexOf(keyword)] = keyword;
-//     // currentWord.innerHTML = answerArray.join("");
-//     document.getElementById("currentWord").innerHTML = answerArray.join(" ");
-//   } else {
-//     wrongWord.push(keyword);
-//     console.log(wrongWord);
-//   }
-// });
+// 6. when the remaining guesses = 0; game over for the user
