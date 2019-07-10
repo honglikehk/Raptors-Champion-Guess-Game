@@ -74,6 +74,7 @@ document.onkeyup = function(event) {
 
   var comparePlayer = word.split("");
   var indPlayer = comparePlayer.indexOf(guess);
+
   console.log(indPlayer);
   console.log(answerArray);
 
@@ -98,6 +99,9 @@ document.onkeyup = function(event) {
   //5.  when the word is answered correctly --- add 1 point to the wins
   // when the wins --- went through the length of the array - the user wins the game
   // when they just win one word - reset .. the word and give a new random word
+  if (remainingLetters === 0) {
+    playerSetupUnderScores(word);
+  }
 
   // 6. when the remaining guesses = 0; game over for the user
 };
