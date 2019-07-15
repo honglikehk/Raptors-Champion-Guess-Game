@@ -18,7 +18,7 @@ const players = [
 ];
 
 var wins = 0;
-var guesses = 15;
+var remainingGuesses = 15;
 var guessedLetters = [];
 var answerArray = [];
 
@@ -33,15 +33,25 @@ function randomPlayer() {
   return randomPlayer;
 }
 
-var word = randomPlayer();
+var word;
+var remainingLetters;
+
+function startGame() {
+  answerArray = [];
+  word = randomPlayer();
+  remainingLetters = word.length;
+  // print the underscores to the page
+  currentWord.innerHTML = playerSetupUnderScores(word);
+
+  // pick a random player in an array
+}
+// Once the page is loaded, start the game right away
 
 // the next word in the game
-var nextWord = randomPlayer();
-console.log(nextWord);
+// var nextWord = randomPlayer();
+// console.log(nextWord);
 
 console.log(word);
-
-var remainingLetters = word.length;
 
 console.log(remainingLetters);
 
@@ -54,66 +64,92 @@ function playerSetupUnderScores(word) {
 
   return underScores;
 }
-
-// print the underscores to the page
-currentWord.innerHTML = playerSetupUnderScores(word);
-
-console.log(playerSetupUnderScores(word));
-
 // 2. when a user clicks the letter --- make sure to set it to all lowercase
 // initalize event listener
+
+function updateGameState(word, letterGuessed, wordDisplayed) {
+  var answerWord = word.split("");
+  // var indPlayer = comparePlayer.indexOf(guess);
+
+  // console.log(indPlayer);
+  console.log(wordDisplayed);
+
+  var letterFound = false;
+
+  // Loop through array of characters of word
+  for (var i = 0; i < answerWord.length; i++) {
+    // if (guess == ) {
+
+    // }
+    if (letterGuessed != answerWord[i]) {
+    }
+    if (letterGuessed == answerWord[i]) {
+      letterFound = true;
+      //If person guessed right, push into right answers array
+      // answerArray[j] = guess;
+      wordDisplayed[i] = letterGuessed;
+      currentWord.innerHTML = wordDisplayed.join(" ");
+      remainingLetters--;
+    }
+  }
+
+  if (!letterFound) {
+    //If person guessed wrong, push into wrong answers array
+    guessedLetters.push(letterGuessed);
+    remainingGuesses--;
+    alreadyGuessed.innerHTML = remainingGuesses;
+  }
+
+  // for (var j = 0; j < comparePlayer.length; j++) {
+  //   if (indPlayer === -1) {
+  //     guessedLetters.push(guess);
+  //     alreadyGuessed.innerHTML = guesses;
+  //     guesses--;
+  //   } else if (comparePlayer[j] === guess) {
+  //     answerArray[j] = guess;
+  //     currentWord.innerHTML = answerArray;
+  //     remainingLetters--;
+  //   }
+  // }
+}
+
+//3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
   // Determines which key was pressed.
 
-  function getGuess() {
-    var userGuess = event.key;
-    var user = userGuess.toLowerCase();
-    return user;
-  }
+  // function getGuess() {
+  //   var userGuess = event.key;
+  //   var user = userGuess.toLowerCase();
+  //   return user;
+  // }
+  var guess = event.key.toLowerCase();
+  // var guess = getGuess();
 
-  var guess = getGuess();
-
-  console.log(getGuess());
-
-  function updateGameState(word, guess, answerArray) {
-    var comparePlayer = word.split("");
-    var indPlayer = comparePlayer.indexOf(guess);
-
-    console.log(indPlayer);
-    console.log(answerArray);
-
-    for (var j = 0; j < word.length; j++) {
-      if (indPlayer === -1) {
-        guessedLetters.push(guess);
-        alreadyGuessed.innerHTML = guesses;
-        guesses--;
-      } else {
-        if (word[j] === guess) {
-          answerArray[j] = guess;
-          currentWord.innerHTML = answerArray;
-          remainingLetters--;
-        }
-      }
-
-      //3. if the letter clicked is correct then go fill all the underscores with the correct answer and show the progress to the user
-    }
-  }
+  // console.log(guess);
 
   updateGameState(word, guess, answerArray);
-  console.log(updateGameState(word, guess, answerArray));
+  // console.log(updateGameState(word, guess, answerArray));
   //4. if it is not correct then log it to an empty array and show it
 
+  if (remainingLetters === 0) {
+    startGame();
+  }
+
+  if (remainingGuesses === 0) {
+    //GAME OVER
+    console.log("gameover!!!!");
+  }
   //5.  when the word is answered correctly --- add 1 point to the wins
   // when the wins --- went through the length of the array - the user wins the game
   // when they just win one word - reset .. the word and give a new random word
 
   // 6. when the remaining guesses = 0; game over for the user
-};
+  // };
 
-// things still need to be done
-/*
+  // things still need to be done
+  /*
 1. log the number of wins - when all the array items - have been played with - then the player wins
 
 2. deduct from the number of guesses and log it in the guess panel 
@@ -123,3 +159,6 @@ document.onkeyup = function(event) {
 4. if the user # of guesses reaches 0, then its game over for the user. 
 
 */
+};
+
+startGame();
